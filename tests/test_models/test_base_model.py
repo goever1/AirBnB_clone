@@ -10,13 +10,13 @@ import os
 
 class test_basemodel(unittest.TestCase):
     """ """
-
+    
     def __init__(self, *args, **kwargs):
         """ """
         super().__init__(*args, **kwargs)
         self.name = 'BaseModel'
         self.value = BaseModel
-
+        
     def setUp(self):
         """ """
         pass
@@ -26,7 +26,7 @@ class test_basemodel(unittest.TestCase):
             os.remove('file.json')
         except:
             pass
-
+            
     def test_default(self):
         """ """
         i = self.value()
@@ -59,8 +59,7 @@ class test_basemodel(unittest.TestCase):
     def test_str(self):
         """ """
         i = self.value()
-        self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
-                         i.__dict__))
+        self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id, i.__dict__))
 
     def test_todict(self):
         """ """
