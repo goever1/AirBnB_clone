@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-ssss
 """ Console Module """
 import cmd
 import sys
