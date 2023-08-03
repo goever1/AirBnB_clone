@@ -123,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        new_instance = HBNBCommand.classes[class_name]()
+        new_instance = HBNBCommand.classes[args_list[0]]()
 
         for i in range(1, len(arg_list)):
             s = arg_list[i].split('=')
