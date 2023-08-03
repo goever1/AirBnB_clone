@@ -12,7 +12,7 @@ class BaseModel:
     id = Column(String(60), primary_key=True, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
-    
+
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
@@ -30,7 +30,7 @@ class BaseModel:
                                                 '%Y-%m-%dT%H:%M:%S.%f')
             if not hasattr(self, 'id'):
                 self.id = str(uuid.uuid4())
-                
+
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
@@ -52,8 +52,7 @@ class BaseModel:
         d["updated_at"] = self.updated_at.isoformat()
         return d
 
-    
     def delete(self):
         from models import storage
-        
+
         models.storage.delete(self)
