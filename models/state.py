@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 class State(BaseModel):
     """ State class """
     __tablename__ = "states"
-    name = Column(string(128), nullable=False)
+    name = Column(String(128), nullable=False)
 
 @property
 def cities(self):
