@@ -2,6 +2,8 @@
 """This module defines a base class for all models in our hbnb clone"""
 import uuid
 from datetime import datetime
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, DateTime
 
 Base = declarative_base()
 
@@ -19,20 +21,14 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
         else:
-            if kwargs.get("created_at"):
-                kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                    '%Y-%m-%dT%H:%M:%S.%f')
-            else:
-                self.created_at = datetime.now()
-            if kwargs.get("created_at"):
-                kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            else:
-                self.updated_at = datetime.now()
-            for key, val in kwargs.items():
-                if "__class__" not in key:
-                    setattr(self, key, val)
-            if not self.id:
+            for k, v in kwargs.items():
+                if k != '__class__':
+                    setattr(self, k, v)
+            self.created_at = datetime.strptime(self.created_at,
+                                                '%Y-%m-%dT%H:%M:%S.%f')
+            self.updated_at = datetime.strptime(self.updated_at,
+                                                '%Y-%m-%dT%H:%M:%S.%f')
+            if not hasattr(self, 'id'):
                 self.id = str(uuid.uuid4())
                 
     def __str__(self):
@@ -49,16 +45,15 @@ class BaseModel:
 
     def to_dict(self):
         """Convert instance into dict format"""
-        dictionary = {}
-        dictionary.update(self.__dict__)
-        dictionary.update({'__class__':
-                          (str(type(self)).split('.')[-1]).split('\'')[0]})
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
-        if '_sa_instance_state' in dictionary.keys():
-            dictionary.pop('_sa_instance_state', None)
-        return dictionary
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state', None)
+        d["__class__"] = self.__class__.__name__
+        d["created_at"] = self.created_at.isoformat()
+        d["updated_at"] = self.updated_at.isoformat()
+        return d
 
     
     def delete(self):
+        from models import storage
+        
         models.storage.delete(self)
