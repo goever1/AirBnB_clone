@@ -30,17 +30,25 @@ class DBStorage:
       Base.metadata.drop_all(bind=self.__engine)
 
   def all(self, cls=None):
-    objs = {}
-    if cls == None:
-      classes = [BaseModel, State, City, place, Review]
-    else:
-      classes = [cls]
-
-    for c in classes:
-      for obj in self.__session.query(c).all():
-        key = '{}.{}'.format(obj.__class__.__name__, obj.id)
-        objs[key] = obj
-    return objs
+      """
+      Perform query on the current database session
+      # Must return a dictionary with all objects according
+      to class name passed in cls argument
+      """
+      obj_dict = {}
+      if cls != '':
+          objs = self.__session.query(cls)
+      else:
+          objs = self.__session.query(Amenity)
+          # We could have used extend() list method too,
+          # but would have needed another way to code also
+          objs += self.__session.query(City)
+          objs += self.__session.query(Place)
+          objs += self.__session.query(Review)
+          objs += self.__session.query(State)
+          objs += self.__session.query(User)
+      return {"{}.{}".format(obj.__class__.__name__, obj.id): obj
+              for obj in objs}
 
   def new(self, obj):
     self.__session.add(obj)
@@ -53,9 +61,15 @@ class DBStorage:
       self.__session,delete(obj)
 
   def reload(self):
-    Base.metadata.create_all(bind=self.__engine)
-    self.__session = scoped_session(sessionmaker(bind=self.__engine, 
-                                                 expire_on_commit=False))
+      """
+      Commit all changes in database after
+      the changings
+      """
+      Base.metadata.create_all(self.__engine)
+      session_factory = sessionmaker(
+          bind=self.__engine, expire_on_commit=False)
+      Session = scoped_session(session_factory)
+      self.__session = Session
 
   def close(self):
         """close session, proper ending"""
