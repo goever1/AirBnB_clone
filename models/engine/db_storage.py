@@ -56,3 +56,10 @@ class DBStorage:
     Base.metadata.create_all(bind=self.__engine)
     self.__session = scoped_session(sessionmaker(bind=self.__engine, 
                                                  expire_on_commit=False))
+
+  def close(self):
+        """close session, proper ending"""
+        self.__session.remove()
+
+  def classes(self):
+        """ returns dictionary of valid classes """
