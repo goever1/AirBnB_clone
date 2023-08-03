@@ -1,6 +1,13 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from models.review import Review
+from sqlalchemy import Column, Integer, Float, String, ForeignKey, Table
+from sqlalchemy.orm import relationship
+from os import getenv
+import models
+
+env = getenv('HBNB_TYPE_STORAGE')
 
 
 class Place(BaseModel, Base if (env == "db") else object):
@@ -30,3 +37,15 @@ class Place(BaseModel, Base if (env == "db") else object):
 
         amenities = relationship("Amenity", secondary=place_amenity,
                                  viewonly=False, backref='places')
+    else:
+    city_id = ""
+    user_id = ""
+    name = ""
+    description = ""
+    number_rooms = 0
+    number_bathrooms = 0
+    max_guest = 0
+    price_by_night = 0
+    latitude = 0.0
+    longitude = 0.0
+    amenity_ids = []
