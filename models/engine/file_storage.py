@@ -51,16 +51,10 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """Deletes an object from FileStorage.__objects"""
-        """To delete obj from __objects if it’s inside"""
-        if not obj:
-            return
-        if obj in FileStorage.__objects.values():
-            del FileStorage.__objects[obj.to_dict()['__class__'] + '.' + obj.id]
-        key = "{}.{}".format(type(obj).__name__, obj.id)
-        if key in self.__objects:
-            del self.__objects[key]
-            self.save()
+        """delete obj from __objects if it's inside"""
+        if obj is not None:
+            bye_key = str(obj.__class__.__name__) + '.' + (obj.id)
+            FileStorage.__objects.pop(bye_key)
 
     def close(self):
         """Call reload() method for deserializing the JSON file to objects"""
