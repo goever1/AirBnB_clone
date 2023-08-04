@@ -11,6 +11,7 @@ class State(BaseModel, Base):
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
     cities = relationship('City', backref='states', cascade='all, delete')
+    id = Column(String(60), ForeignKey('states.id'), nullable=False)
     
     @property
     def cities(self):
