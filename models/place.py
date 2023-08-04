@@ -8,13 +8,14 @@ from sqlalchemy.orm import relationship
 from os import getenv
 import models
 
-place_amenity = Table("place_amenity", Base.metadata, extend_existing=True,
+place_amenity = Table("place_amenity", Base.metadata,
                       Column('place_id', String(60), 
                              ForeignKey('places.id'), 
                              primary_key=True, nullable=False),
                       Column('amenity_id', String(60),
                              ForeignKey('amenities.id'),
-                             primary_key=True, nullable=False))
+                             primary_key=True, nullable=False),
+                     extend_existing=True,)
 
 
 class Place(BaseModel, Base if (env == "db") else object):
