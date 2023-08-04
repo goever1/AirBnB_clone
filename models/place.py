@@ -34,28 +34,3 @@ class Place(BaseModel, Base if (env == "db") else object):
                                 Column('amenity_id', String(60),
                                        ForeignKey('amenities.id'),
                                        primary_key=True, nullable=False))
-
-    else:
-      
-      @property
-        def reviews(self):
-            """get a list of linked reviews"""
-            review_list = []
-            for review in list(models.storage.all(Review).values()):
-                if review.place_id == self.id:
-                    review_list.append(review)
-            return review_list
-
-        @property
-        def amenities(selfl):
-            """get amenities"""
-            amenity_list = []
-            for amenity in list(models.storage.all(Amenity).values()):
-                if amenity.id in self.amenity_ids:
-                    amenity_list.append(amenity)
-            return amenity_list
-
-        @amenities.setter
-        def amenities(self, value):
-            if type(value) == Amenity:
-                self.amenity_ids.append(value.id)
