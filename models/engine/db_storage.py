@@ -37,16 +37,16 @@ class DBStorage:
       """
       obj_dict = {}
       if cls != '':
-          objs = self.__session.query(cls)
+          objs = self.__session.query(cls).all()
       else:
-          objs = self.__session.query(Amenity)
-          objs += self.__session.query(City)
-          objs += self.__session.query(Place)
-          objs += self.__session.query(Review)
-          objs += self.__session.query(State)
-          objs += self.__session.query(User)
+          objs = self.__session.query(Amenity).all()
+          objs += self.__session.query(City).all()
+          objs += self.__session.query(Place).all()
+          objs += self.__session.query(Review).all()
+          objs += self.__session.query(State).all()
+          objs += self.__session.query(User).all()
       return {"{}.{}".format(obj.__class__.__name__, obj.id): obj
-              for obj in objs}
+              for obj in objs
 
   def new(self, obj):
     self.__session.add(obj)
