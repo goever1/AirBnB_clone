@@ -36,7 +36,7 @@ class DBStorage:
       to class name passed in cls argument
       """
       obj_dict = {}
-      if cls != '':
+      if cls is not '':
           objs = self.__session.query(cls).all()
       else:
           objs = self.__session.query(Amenity).all()
@@ -45,7 +45,7 @@ class DBStorage:
           objs += self.__session.query(Review).all()
           objs += self.__session.query(State).all()
           objs += self.__session.query(User).all()
-      return {"{}.{}".format(obj.__class__.__name__, obj.id): obj
+      return {"{}.{}".format(obj.__class__.__name__, obj.id): obj}
               for obj in objs
 
   def new(self, obj):
