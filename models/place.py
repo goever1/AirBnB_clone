@@ -48,3 +48,13 @@ class Place(BaseModel, Base if (env == "db") else object):
         latitude = 0.0
         ongitude = 0.0
         amenity_ids = []
+        
+        def reviews(self, place_obj):
+          """
+          Returns a list of Review instances associated with the given Place object.
+          """
+          review_instances = []
+          for review in self.__objects.values():
+              if isinstance(review, Review) and review.place_id == place_obj.id:
+                  review_instances.append(review)
+          return review_instances
