@@ -35,8 +35,7 @@ class DBStorage:
       # Must return a dictionary with all objects according
       to class name passed in cls argument
       """
-      obj_dict = {}
-      if cls is not '':
+      if cls is not None:
           objs = self.__session.query(cls).all()
       else:
           objs = self.__session.query(Amenity).all()
@@ -45,8 +44,8 @@ class DBStorage:
           objs += self.__session.query(Review).all()
           objs += self.__session.query(State).all()
           objs += self.__session.query(User).all()
-      return {"{}.{}".format(obj.__class__.__name__, obj.id): obj}
-              for obj in objs
+      return {"{}.{}".format(obj.__class__.__name__, obj.id): obj
+              for obj in objs}
 
   def new(self, obj):
     self.__session.add(obj)
