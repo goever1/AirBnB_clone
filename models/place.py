@@ -18,9 +18,9 @@ place_amenity = Table("place_amenity", Base.metadata,
                      extend_existing=True,)
 
 
-class Place(BaseModel, Base if (env == "db") else object):
+class Place(BaseModel, Base):
     """ A place to stay """
-    if env == 'db':
+    #if env == 'db':
         __tablename__ = "places"
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
