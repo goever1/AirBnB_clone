@@ -70,8 +70,6 @@ class DBStorage:
       self.__session = Session
 
   def close(self):
-        """close session, proper ending"""
-        self.__session.remove()
-
-  def classes(self):
-        """ returns dictionary of valid classes """
+      """close session, proper ending"""
+      self.__session.remove()
+  
