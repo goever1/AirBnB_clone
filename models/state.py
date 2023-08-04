@@ -11,7 +11,7 @@ class State(BaseModel, Base):
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
     cities = relationship('City', backref='state', cascade='all, delete')
-
+    
     @property
     def cities(self):
         """getter attribute to return list of City instances"""
@@ -21,4 +21,4 @@ class State(BaseModel, Base):
         for city in storage.all(City).values():
             if city.state_id == self.id:
                 cities_list.append(city)
-        return cities_list
+                return cities_list
