@@ -40,8 +40,6 @@ class DBStorage:
           objs = self.__session.query(cls)
       else:
           objs = self.__session.query(Amenity)
-          # We could have used extend() list method too,
-          # but would have needed another way to code also
           objs += self.__session.query(City)
           objs += self.__session.query(Place)
           objs += self.__session.query(Review)
