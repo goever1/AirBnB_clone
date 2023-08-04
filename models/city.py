@@ -10,7 +10,7 @@ env = getenv('HBNB_TYPE_STORAGE')
 
 class City(BaseModel, Base if (env == "db") else object):
     """ The city class, contains state ID and name """
-   if env == "db":
+   if env == "db"
         __tablename__ = "cities"
 
         name = Column(String(128), nullable=False)
