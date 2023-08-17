@@ -26,6 +26,10 @@ def pyton(text):
     return f"Python { text.replace('_', ' ')}"
 
 @app.route("/number/<n>", strict_slashes=False)
-def
+def num(n):
+    '''Fifth function. Prints on number if n is int'''
+    if type(n) == int:
+        return f"{n} is a number"
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
