@@ -35,14 +35,13 @@ def python_is_cool(text='is cool'):
 @app.route("/number/<int:n>", strict_slashes=False)
 def only_int(n):
     '''Fifth function. Prints on number if n is int'''
-    if type(n) == int:
-        return "{} is a number".format(n)
+    return "{} is a number".format(n)
 
 
 @app.route("/number_template/<n>")
 def n_temp(n):
-    if type(n) == int:
-        return render_temp('5-number.html', title='HBNB', n=n)
+    '''Route for /number_template/<n>'''
+    return render_temp('5-number.html', title='HBNB', n=n)
 
 
 if __name__ == "__main__":
