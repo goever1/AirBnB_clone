@@ -38,16 +38,22 @@ def only_int(n):
     return "{} is a number".format(n)
 
 
-@app.route("/number_template/<n>")
+@app.route("/number_template/<n>", strict_slashes=False)
 def n_temp(n):
     '''Route for /number_template/<n>'''
-    return render_template('5-number.html', title='HBNB', n=n)
+    if type(n) == int:
+        return render_template('5-number.html', title='HBNB', n=n)
+    if not n.isdigit():
+        abort(404)
 
 
-@app.route("/number_odd_or_even/<n>")
+@app.route("/number_odd_or_even/<n>", strict_slashes=False)
 def n_odd(n):
     '''Seventh function. Prints a HTML template'''
-    return render_template('6-number_odd_or_even.html', n=n)
+    if type(n) == int:
+        return render_template('6-number_odd_or_even.html', n=n)
+    if not n.isdigit():
+        abort(404)
 
 
 if __name__ == "__main__":
