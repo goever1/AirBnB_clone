@@ -38,7 +38,7 @@ def only_int(n):
     return "{} is a number".format(n)
 
 
-@app.route("/number_template/<n>")
+@app.route("/number_template/<n>",  strict_slashes=False)
 def n_temp(n):
     '''Route for /number_template/<n>'''
     return render_temp('5-number.html', title='HBNB', n=n)
