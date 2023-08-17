@@ -20,6 +20,7 @@ def hbnb():
 def c(text):
     return f"C {text.replace('_', ' ')}"
 
+@app.route("/python", default={'text': "is cool"}, strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
 def pyton(text):
     return f"Python { text.replace('_', ' ')}"
