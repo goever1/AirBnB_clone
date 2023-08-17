@@ -9,14 +9,17 @@ app = Flask(__name__)
 
 @app.route("/", strict_slashes=False)
 def hello():
+     '''Function that returns a simple string'''
     return "Hello HBNB!"
 
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
+    '''Second function. Prints on /hbnb'''
     return "HBNB"
 
 @app.route("c/<text>", strict_slashes=False)
 def c(text):
+    '''Third function. Prints on /c/anything'''
     return f"C {text.replace('_', ' ')}"
 
 if __name__ == '__main__':
