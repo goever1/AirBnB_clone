@@ -18,7 +18,7 @@ def close(self):
 def states():
     '''Shows the states in an HTML page'''
     states = storage.all(State)
-    return render_template('9-states.html', states=states, mode='all')
+    return render_template("9-states.html", states=states, mode="all")
 
 
 @app.route("/states/<id>", strict_slashes=False)
@@ -26,8 +26,8 @@ def state_id(id):
     '''Shows the cities of a state in a HTML page'''
     for state in storage.all(State).values():
         if state.id == id:
-            return render_template('9-states.html', states=state, mode='id')
-    return render_template('9-states.html', states=state, mode='none')
+            return render_template("9-states.html", states=state, mode="id")
+    return render_template("9-states.html", states=state, mode="none")
 
 
 if __name__ == '__main__':

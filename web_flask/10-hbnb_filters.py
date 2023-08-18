@@ -14,11 +14,12 @@ def close(self):
     storage.close()
 
 
-@app.route("/cities_by_states", strict_slashes=False)
-def cities():
-    '''Shows the states and cities in an HTML page'''
-    states = storage.all(State)
-    return render_template("8-cities_by_states.html", states=states )
+@app.route("/hbnb_filters", strict_slashes=False)
+def filters():
+    '''Shows the static file in an HTML page'''
+    states = storage.all(State).values()
+    amenities = storage.all(Amenity).values()
+    return render_template("10-hbnb_filters.html", states=states, amenities=amenities)
 
 
 if __name__ == '__main__':
