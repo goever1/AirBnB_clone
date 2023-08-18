@@ -18,7 +18,7 @@ def close(self):
 def filters():
     '''Shows the static file in an HTML page'''
     states = storage.all(State).values()
-    amenities = storage.all(Amenity).values()
+    amenities = storage.all(amenities).values()
     return render_template("10-hbnb_filters.html", states=states, amenities=amenities)
 
 
