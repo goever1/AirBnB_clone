@@ -21,7 +21,7 @@ def states():
     return render_template('9-states.html', states=states, mode='all')
 
 
-@@app.route("/states/<id>", strict_slashes=False)
+@app.route("/states/<id>", strict_slashes=False)
 def state_id(id):
     '''Shows the cities of a state in a HTML page'''
     for state in storage.all(State).values():
